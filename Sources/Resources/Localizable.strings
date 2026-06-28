@@ -1,25 +1,27 @@
 "menu.no_devices" = "No devices";
-"menu.account_settings" = "Account Settings…";
+"menu.account_settings" = "Settings…";
 "menu.about" = "About";
 "menu.quit" = "Quit";
 
-"settings.title" = "Account Settings";
+"settings.title" = "Settings";
+"settings.launch_at_login" = "Launch automatically at login";
+"settings.account_section" = "Anker Account Settings";
 "settings.email" = "Email";
 "settings.password" = "Password";
 "settings.country" = "Country/Region Code";
 "settings.debug_log" = "Write logs to file";
 "settings.save" = "Save";
 "settings.cancel" = "Cancel";
-"settings.login" = "Login";
 "settings.clear" = "Clear";
 
 "settings.error.missing_fields" = "Enter email, password, and country/region code.";
 "settings.error.missing_credentials" = "Missing credentials.";
 "settings.error.auth_failed" = "Authentication failed.";
+"settings.error.launch_at_login_failed" = "Could not update login item setting.";
 "settings.error.backoff" = "Please try again later.";
-"settings.status.verifying" = "Verifying login…";
-"settings.status.success" = "Login succeeded.";
-"settings.status.failure" = "Login failed.";
+"settings.status.verifying" = "Saving settings…";
+"settings.status.success" = "Settings saved.";
+"settings.status.failure" = "Could not save settings.";
 
 "about.title" = "SolixMenu";
 "about.subtitle" = "Anker Solix status menu";

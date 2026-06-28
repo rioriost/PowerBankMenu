@@ -57,6 +57,8 @@
 		A1B2C3D4E5F60718293A4B61 /* AppLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B62 /* AppLocalization.swift */; };
 		A1B2C3D4E5F60718293A4B63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B64 /* Localizable.strings */; };
 		A1B2C3D4E5F60718293A4B65 /* Localizable_ja.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B66 /* Localizable_ja.strings */; };
+		A1B2C3D4E5F60718293A4B67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B68 /* Assets.xcassets */; };
+		A1B2C3D4E5F60718293A4B6A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B6B /* PrivacyInfo.xcprivacy */; };
 		B2C3D4E5F60718293A4B703 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B701 /* AppLogger.swift */; };
 		B2C3D4E5F60718293A4B704 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B702 /* AppSettings.swift */; };
 		B2C3D4E5F60718293A4B705 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B701 /* AppLogger.swift */; };
@@ -114,6 +116,9 @@
 		A1B2C3D4E5F60718293A4B62 /* AppLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocalization.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B64 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B66 /* Localizable_ja.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable_ja.strings; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B69 /* SolixMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SolixMenu.entitlements; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B6B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A3A3E64FDCC3FA5B8444F007 /* ApiTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTypes.swift; sourceTree = "<group>"; };
 		A99A23CD2DA33283BFD48425 /* MqttDeviceCharger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttDeviceCharger.swift; sourceTree = "<group>"; };
 		A9A94744D6D94929C6EE0C7F /* MqttMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttMap.swift; sourceTree = "<group>"; };
@@ -268,8 +273,10 @@
 		A1B2C3D4E5F60718293A4B70 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D4E5F60718293A4B68 /* Assets.xcassets */,
 				A1B2C3D4E5F60718293A4B64 /* Localizable.strings */,
 				A1B2C3D4E5F60718293A4B66 /* Localizable_ja.strings */,
+				A1B2C3D4E5F60718293A4B6B /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -292,6 +299,7 @@
 				C0A1B2C3D4E5F60718293A4D /* CredentialStore.swift */,
 				C0A1B2C3D4E5F60718293A4F /* LoginController.swift */,
 				D3E4F5A6B7C8091A2B3C4D5E /* Info.plist */,
+				A1B2C3D4E5F60718293A4B69 /* SolixMenu.entitlements */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -389,8 +397,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A2B3C4D5E6F708192A3B4C5 /* mqttmap.json in Resources */,
+				A1B2C3D4E5F60718293A4B67 /* Assets.xcassets in Resources */,
 				A1B2C3D4E5F60718293A4B63 /* Localizable.strings in Resources */,
 				A1B2C3D4E5F60718293A4B65 /* Localizable_ja.strings in Resources */,
+				A1B2C3D4E5F60718293A4B6A /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,20 +514,27 @@
 		320B01EA939C76E0A16A0BCD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
+				CODE_SIGN_ENTITLEMENTS = Sources/App/SolixMenu.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23889H77KX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				INFOPLIST_FILE = Sources/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SolixMenu;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -525,7 +542,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.13;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = st.rio.solixmenu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -678,20 +695,27 @@
 		8DA9026164558818B00A7B69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = Sources/App/SolixMenu.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23889H77KX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				INFOPLIST_FILE = Sources/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SolixMenu;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -699,7 +723,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.13;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = st.rio.solixmenu;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -9,7 +9,7 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         labelWithString: AppLocalization.text("about.version.placeholder")
     )
     private let detailLabel = NSTextField(labelWithString: AppLocalization.text("about.subtitle"))
-    private let linkLabel = NSTextField(labelWithString: "st.rio")
+    private let iconView = NSImageView()
 
     init() {
         let window = NSWindow(
@@ -49,6 +49,10 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         guard let contentView = window?.contentView else { return }
         contentView.wantsLayer = true
 
+        iconView.image = NSApp.applicationIconImage
+        iconView.imageScaling = .scaleProportionallyUpOrDown
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+
         titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         titleLabel.textColor = .labelColor
         titleLabel.alignment = .center
@@ -62,11 +66,7 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         detailLabel.alignment = .center
         detailLabel.maximumNumberOfLines = 0
 
-        linkLabel.font = .systemFont(ofSize: 12, weight: .medium)
-        linkLabel.textColor = .linkColor
-        linkLabel.alignment = .center
-
-        let stack = NSStackView(views: [titleLabel, versionLabel, detailLabel, linkLabel])
+        let stack = NSStackView(views: [iconView, titleLabel, versionLabel, detailLabel])
         stack.orientation = .vertical
         stack.alignment = .centerX
         stack.spacing = 6
@@ -75,6 +75,8 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         contentView.addSubview(stack)
 
         NSLayoutConstraint.activate([
+            iconView.widthAnchor.constraint(equalToConstant: 72),
+            iconView.heightAnchor.constraint(equalToConstant: 72),
             stack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             stack.leadingAnchor.constraint(

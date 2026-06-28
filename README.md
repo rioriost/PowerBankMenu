@@ -12,16 +12,14 @@ A lightweight macOS menu bar app for monitoring Anker Solix devices.
 - macOS 26 or later
 - Apple Silicon (arm64)
 
-## Install (Homebrew)
-```/dev/null/commands.sh#L1-1
-brew install --cask rioriost/cask/solixmenu
-```
-
 ## Usage
 1. Launch the app (it runs as a menu bar accessory).
 2. Click the menu bar icon to view device status.
-3. Open **Account Settings…** to log in or update credentials.
+3. Open **Settings…** to log in, update credentials, or change launch/log options.
 4. Use **About** for app info, **Quit** to exit.
+
+## Privacy Policy
+https://rioriost.github.io/solixmenu/privacy.html
 
 ## Localization
 - Japanese (`ja`) uses the Japanese strings.

@@ -66,6 +66,7 @@ final class StatusBarController: NSObject {
     private let appState: SolixAppState
     private var deviceItems: [NSMenuItem] = []
     private var errorItem: NSMenuItem?
+    private var accountSettingsItem: NSMenuItem?
     private var cancellables: Set<AnyCancellable> = []
 
     var onAccountSettings: (() -> Void)?
@@ -193,6 +194,7 @@ final class StatusBarController: NSObject {
             keyEquivalent: ""
         )
         accountItem.target = self
+        accountSettingsItem = accountItem
         menu.addItem(accountItem)
 
         let aboutItem = NSMenuItem(
@@ -231,9 +233,14 @@ final class StatusBarController: NSObject {
     }
 
     @objc private func handleAccountSettings() {
+        guard accountSettingsItem?.isEnabled != false else { return }
         if let onAccountSettings {
             onAccountSettings()
         }
+    }
+
+    func setAccountSettingsEnabled(_ enabled: Bool) {
+        accountSettingsItem?.isEnabled = enabled
     }
 
     @objc private func handleAbout() {

@@ -4,14 +4,20 @@
 <dict>
     <key>CFBundleName</key>
     <string>SolixMenu</string>
+    <key>CFBundleDisplayName</key>
+    <string>SolixMenu</string>
     <key>CFBundleIdentifier</key>
     <string>st.rio.solixmenu</string>
+    <key>CFBundleIconName</key>
+    <string>AppIcon</string>
     <key>CFBundleShortVersionString</key>
     <string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key>
     <string>$(CURRENT_PROJECT_VERSION)</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.utilities</string>
     <key>LSUIElement</key>
     <true/>
 </dict>

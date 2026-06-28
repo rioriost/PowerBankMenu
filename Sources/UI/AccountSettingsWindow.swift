@@ -1,22 +1,25 @@
 import Cocoa
 
 @MainActor
-final class AccountSettingsWindowController: NSWindowController {
+final class AccountSettingsWindowController: NSWindowController, NSWindowDelegate {
     struct Configuration {
         var title: String = AppLocalization.text("settings.title")
-        var minSize: NSSize = NSSize(width: 440, height: 300)
+        var minSize: NSSize = NSSize(width: 460, height: 300)
     }
 
     private let configuration: Configuration
     private let settingsViewController: AccountSettingsViewController
+    private let onClose: (() -> Void)?
 
     init(
         credentials: SolixCredentials?,
         configuration: Configuration = Configuration(),
         onVerify: ((SolixCredentials) async -> Result<Void, Error>)? = nil,
-        onCancel: (() -> Void)? = nil
+        onCancel: (() -> Void)? = nil,
+        onClose: (() -> Void)? = nil
     ) {
         self.configuration = configuration
+        self.onClose = onClose
         self.settingsViewController = AccountSettingsViewController(
             credentials: credentials,
             onVerify: onVerify,
@@ -36,6 +39,7 @@ final class AccountSettingsWindowController: NSWindowController {
         window.minSize = configuration.minSize
 
         super.init(window: window)
+        window.delegate = self
     }
 
     @available(*, unavailable)
@@ -48,6 +52,10 @@ final class AccountSettingsWindowController: NSWindowController {
         installEditMenuIfNeeded()
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        onClose?()
     }
 
     private func installEditMenuIfNeeded() {
@@ -85,6 +93,7 @@ private final class AccountSettingsViewController: NSViewController {
     private let emailField = NSTextField()
     private let passwordField = NSSecureTextField()
     private let countryField = NSTextField()
+    private let launchAtLoginCheckbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
     private let debugLogCheckbox = NSButton(checkboxWithTitle: "", target: nil, action: nil)
 
     private let statusLabel = NSTextField(labelWithString: "")
@@ -120,12 +129,14 @@ private final class AccountSettingsViewController: NSViewController {
         let view = NSView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        let formStack = NSStackView()
-        formStack.orientation = .vertical
-        formStack.spacing = 12
-        formStack.translatesAutoresizingMaskIntoConstraints = false
+        let contentStack = NSStackView()
+        contentStack.orientation = .vertical
+        contentStack.spacing = 12
+        contentStack.translatesAutoresizingMaskIntoConstraints = false
+        contentStack.alignment = .leading
 
         configureFields()
+        configureLaunchAtLoginToggle()
         configureDebugToggle()
 
         let emailRow = labeledRow(title: AppLocalization.text("settings.email"), view: emailField)
@@ -137,7 +148,12 @@ private final class AccountSettingsViewController: NSViewController {
             title: AppLocalization.text("settings.country"),
             view: countryField
         )
-        let debugRow = labeledRow(title: "", view: debugLogCheckbox)
+        let separator = NSBox()
+        separator.boxType = .separator
+        separator.translatesAutoresizingMaskIntoConstraints = false
+
+        let accountHeader = NSTextField(labelWithString: AppLocalization.text("settings.account_section"))
+        accountHeader.font = .systemFont(ofSize: NSFont.systemFontSize, weight: .semibold)
 
         statusLabel.textColor = .secondaryLabelColor
         statusLabel.maximumNumberOfLines = 0
@@ -155,41 +171,59 @@ private final class AccountSettingsViewController: NSViewController {
 
         configureButtons()
 
-        let buttonRow = NSStackView(views: [cancelButton, verifyButton])
+        let buttonSpacer = NSView()
+        buttonSpacer.translatesAutoresizingMaskIntoConstraints = false
+
+        let buttonRow = NSStackView(views: [buttonSpacer, cancelButton, verifyButton])
         buttonRow.orientation = .horizontal
         buttonRow.alignment = .centerY
         buttonRow.spacing = 8
+        buttonRow.translatesAutoresizingMaskIntoConstraints = false
 
-        formStack.addArrangedSubview(emailRow)
-        formStack.addArrangedSubview(passwordRow)
-        formStack.addArrangedSubview(countryRow)
-        formStack.addArrangedSubview(debugRow)
-        formStack.addArrangedSubview(statusRow)
-        formStack.addArrangedSubview(buttonRow)
+        contentStack.addArrangedSubview(launchAtLoginCheckbox)
+        contentStack.addArrangedSubview(debugLogCheckbox)
+        contentStack.addArrangedSubview(separator)
+        contentStack.addArrangedSubview(accountHeader)
+        contentStack.addArrangedSubview(emailRow)
+        contentStack.addArrangedSubview(passwordRow)
+        contentStack.addArrangedSubview(countryRow)
+        contentStack.addArrangedSubview(statusRow)
+        contentStack.addArrangedSubview(buttonRow)
 
-        view.addSubview(formStack)
+        view.addSubview(contentStack)
 
         NSLayoutConstraint.activate([
-            formStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            formStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            formStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            formStack.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            contentStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            contentStack.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
 
+            separator.widthAnchor.constraint(equalTo: contentStack.widthAnchor),
+            accountHeader.widthAnchor.constraint(equalTo: contentStack.widthAnchor),
             emailField.widthAnchor.constraint(greaterThanOrEqualToConstant: 240),
             passwordField.widthAnchor.constraint(greaterThanOrEqualToConstant: 240),
             countryField.widthAnchor.constraint(greaterThanOrEqualToConstant: 120),
+            buttonRow.widthAnchor.constraint(equalTo: contentStack.widthAnchor),
+            buttonRow.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor),
         ])
 
         self.view = view
     }
 
     private func configureFields() {
-        [emailField, passwordField].forEach { field in
+        [emailField, passwordField, countryField].forEach { field in
             field.isEditable = true
             field.isSelectable = true
             field.isEnabled = true
             field.refusesFirstResponder = false
         }
+    }
+
+    private func configureLaunchAtLoginToggle() {
+        launchAtLoginCheckbox.title = AppLocalization.text("settings.launch_at_login")
+        launchAtLoginCheckbox.target = self
+        launchAtLoginCheckbox.action = #selector(handleLaunchAtLoginToggle)
+        launchAtLoginCheckbox.state = AppSettings.shared.isLaunchAtLoginEnabled ? .on : .off
     }
 
     private func configureDebugToggle() {
@@ -204,7 +238,7 @@ private final class AccountSettingsViewController: NSViewController {
         cancelButton.target = self
         cancelButton.action = #selector(handleCancel)
 
-        verifyButton.title = AppLocalization.text("settings.login")
+        verifyButton.title = AppLocalization.text("settings.save")
         verifyButton.target = self
         verifyButton.action = #selector(handleVerify)
         verifyButton.keyEquivalent = "\r"
@@ -218,7 +252,7 @@ private final class AccountSettingsViewController: NSViewController {
         grid.rowSpacing = 6
         grid.columnSpacing = 12
         grid.translatesAutoresizingMaskIntoConstraints = false
-        grid.column(at: 0).width = 120
+        grid.column(at: 0).width = 130
 
         return grid
     }
@@ -272,6 +306,18 @@ private final class AccountSettingsViewController: NSViewController {
 
     @objc private func handleDebugLogToggle() {
         AppSettings.shared.isDebugLogEnabled = debugLogCheckbox.state == .on
+    }
+
+    @objc private func handleLaunchAtLoginToggle() {
+        let enabled = launchAtLoginCheckbox.state == .on
+        do {
+            try AppSettings.shared.setLaunchAtLoginEnabled(enabled)
+            launchAtLoginCheckbox.state = AppSettings.shared.isLaunchAtLoginEnabled ? .on : .off
+            hideStatus()
+        } catch {
+            launchAtLoginCheckbox.state = AppSettings.shared.isLaunchAtLoginEnabled ? .on : .off
+            showError(AppLocalization.text("settings.error.launch_at_login_failed"))
+        }
     }
 
     private func closeWindow() {

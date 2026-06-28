@@ -48,6 +48,10 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
     }
 
     private func showAccountSettings() {
+        if let accountSettingsWindow {
+            accountSettingsWindow.present()
+            return
+        }
         let credentials = CredentialStore.shared.load()
         let window = AccountSettingsWindowController(
             credentials: credentials,
@@ -57,16 +61,25 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
                 }
                 let result = await self.coordinator.applySettings(credentials)
                 if case .success = result {
-                    self.accountSettingsWindow = nil
+                    self.closeAccountSettingsWindow()
                 }
                 return result
             },
             onCancel: { [weak self] in
-                self?.accountSettingsWindow = nil
+                self?.closeAccountSettingsWindow()
+            },
+            onClose: { [weak self] in
+                self?.closeAccountSettingsWindow()
             }
         )
         accountSettingsWindow = window
+        statusBarController?.setAccountSettingsEnabled(false)
         window.present()
+    }
+
+    private func closeAccountSettingsWindow() {
+        accountSettingsWindow = nil
+        statusBarController?.setAccountSettingsEnabled(true)
     }
 
     private func showAbout() {

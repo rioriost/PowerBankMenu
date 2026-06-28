@@ -1,4 +1,5 @@
 import Foundation
+import ServiceManagement
 
 enum AppSettingsKeys {
     static let debugLogEnabled = "SolixMenuDebugLogEnabled"
@@ -21,6 +22,21 @@ final class AppSettings {
         set {
             defaults.set(newValue, forKey: AppSettingsKeys.debugLogEnabled)
             AppLogger.shared.setFileLoggingEnabled(newValue)
+        }
+    }
+
+    var isLaunchAtLoginEnabled: Bool {
+        SMAppService.mainApp.status == .enabled
+    }
+
+    func setLaunchAtLoginEnabled(_ enabled: Bool) throws {
+        let service = SMAppService.mainApp
+        if enabled {
+            guard service.status != .enabled else { return }
+            try service.register()
+        } else {
+            guard service.status == .enabled else { return }
+            try service.unregister()
         }
     }
 }

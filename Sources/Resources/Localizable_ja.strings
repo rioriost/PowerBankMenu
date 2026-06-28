@@ -1,27 +1,29 @@
 /* SolixMenu Japanese Localizations */
 
 "menu.no_devices" = "デバイスなし";
-"menu.account_settings" = "アカウント設定…";
+"menu.account_settings" = "設定…";
 "menu.about" = "このアプリについて";
 "menu.quit" = "終了";
 
-"settings.title" = "アカウント設定";
+"settings.title" = "設定";
+"settings.launch_at_login" = "ログイン時に自動的に起動";
+"settings.account_section" = "Ankerアカウント設定";
 "settings.email" = "メールアドレス";
 "settings.password" = "パスワード";
 "settings.country" = "国/地域コード";
 "settings.debug_log" = "ログをファイルに出力";
 "settings.save" = "保存";
 "settings.cancel" = "キャンセル";
-"settings.login" = "ログイン";
 "settings.clear" = "クリア";
 
 "settings.error.missing_fields" = "メールアドレス、パスワード、国/地域コードを入力してください。";
 "settings.error.auth_failed" = "認証に失敗しました。";
+"settings.error.launch_at_login_failed" = "ログイン項目の設定を更新できませんでした。";
 "settings.error.backoff" = "しばらくしてから再試行してください。";
 "settings.error.missing_credentials" = "認証情報が不足しています。";
-"settings.status.verifying" = "ログイン確認中…";
-"settings.status.success" = "ログインに成功しました。";
-"settings.status.failure" = "ログインに失敗しました。";
+"settings.status.verifying" = "設定を保存中…";
+"settings.status.success" = "設定を保存しました。";
+"settings.status.failure" = "設定を保存できませんでした。";
 
 "about.title" = "SolixMenu";
 "about.subtitle" = "メニューバーのSolixモニター";
