@@ -5,7 +5,7 @@
 
 "settings.title" = "Settings";
 "settings.launch_at_login" = "Launch automatically at login";
-"settings.account_section" = "Anker Account Settings";
+"settings.account_section" = "Account Settings";
 "settings.email" = "Email";
 "settings.password" = "Password";
 "settings.country" = "Country/Region Code";
@@ -23,8 +23,8 @@
 "settings.status.success" = "Settings saved.";
 "settings.status.failure" = "Could not save settings.";
 
-"about.title" = "SolixMenu";
-"about.subtitle" = "Anker Solix status menu";
+"about.title" = "PowerBankMenu";
+"about.subtitle" = "Menu bar power status";
 "about.version.placeholder" = "Version —";
 "about.version.short_format" = "Version %@";
 "about.version.format" = "Version %@ (%@)";

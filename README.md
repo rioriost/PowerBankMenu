@@ -1,6 +1,6 @@
-# SolixMenu
+# PowerBankMenu
 
-A lightweight macOS menu bar app for monitoring Anker Solix devices.
+A lightweight macOS menu bar app for monitoring compatible portable power devices.
 
 ## Features
 - Menu bar status with per-device battery and power details
@@ -19,19 +19,19 @@ A lightweight macOS menu bar app for monitoring Anker Solix devices.
 4. Use **About** for app info, **Quit** to exit.
 
 ## Privacy Policy
-https://rioriost.github.io/solixmenu/privacy.html
+https://rioriost.github.io/powerbankmenu/privacy.html
 
 ## Localization
 - Japanese (`ja`) uses the Japanese strings.
 - All other locales use English.
 
 ## Limitations
-- Requires valid Anker Solix credentials and network access.
-- Device availability depends on the Anker Solix APIs and your account.
-- No official affiliation with Anker.
+- Requires valid device account credentials and network access.
+- Device availability depends on the connected service and your account.
+- This is an independent utility and is not affiliated with any device manufacturer.
 
 ## Acknowledgements
-This project references and is implemented with guidance from the Anker Solix API research here:
+This project references community API research for compatible power devices:
 https://github.com/thomluther/anker-solix-api
 Thank you for the great work.
 

@@ -209,7 +209,7 @@ final class ApiSession {
             throw error
         }
 
-        if let error = ApiErrorMapper.makeError(from: response, prefix: "Anker Api Error: login") {
+        if let error = ApiErrorMapper.makeError(from: response, prefix: "API Error: login") {
             throw error
         }
 
@@ -594,7 +594,7 @@ final class ApiSession {
     }
 
     private func loadCachedLoginResponse() -> [String: Any]? {
-        guard let jsonData = UserDefaults.standard.data(forKey: "SolixLoginResponse:\(email)")
+        guard let jsonData = UserDefaults.standard.data(forKey: "PowerBankLoginResponse:\(email)")
         else {
             return nil
         }
@@ -623,7 +623,7 @@ final class ApiSession {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) else {
             return
         }
-        UserDefaults.standard.set(jsonData, forKey: "SolixLoginResponse:\(email)")
+        UserDefaults.standard.set(jsonData, forKey: "PowerBankLoginResponse:\(email)")
     }
 
     // MARK: - API Base Resolver

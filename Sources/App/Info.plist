@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>SolixMenu</string>
+    <string>$(PRODUCT_NAME)</string>
     <key>CFBundleDisplayName</key>
-    <string>SolixMenu</string>
+    <string>$(PRODUCT_NAME)</string>
     <key>CFBundleIdentifier</key>
-    <string>st.rio.solixmenu</string>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIconName</key>
     <string>AppIcon</string>
     <key>CFBundleShortVersionString</key>

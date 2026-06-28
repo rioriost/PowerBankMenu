@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-private let appStateLogPrefix = "[SolixAppState]"
+private let appStateLogPrefix = "[PowerBankAppState]"
 
 @MainActor
 final class SolixAppState: ObservableObject {

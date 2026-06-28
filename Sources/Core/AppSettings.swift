@@ -2,7 +2,7 @@ import Foundation
 import ServiceManagement
 
 enum AppSettingsKeys {
-    static let debugLogEnabled = "SolixMenuDebugLogEnabled"
+    static let debugLogEnabled = "PowerBankMenuDebugLogEnabled"
 }
 
 @MainActor

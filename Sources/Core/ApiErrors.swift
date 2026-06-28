@@ -95,7 +95,7 @@ struct ApiErrorMapper {
         160003: { .noAccessPermission(message: $0) },
     ]
 
-    static func makeError(from data: [String: Any], prefix: String = "Anker Api Error")
+    static func makeError(from data: [String: Any], prefix: String = "API Error")
         -> AnkerSolixError?
     {
         guard let codeValue = data["code"] else { return nil }
@@ -114,7 +114,7 @@ struct ApiErrorMapper {
         return nil
     }
 
-    static func throwIfError(from data: [String: Any], prefix: String = "Anker Api Error") throws {
+    static func throwIfError(from data: [String: Any], prefix: String = "API Error") throws {
         if let error = makeError(from: data, prefix: prefix) {
             throw error
         }

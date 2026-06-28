@@ -29,7 +29,7 @@ class ApiBase {
     var mqttsession: AnyObject?
 
     // Cache
-    private let cacheQueue = DispatchQueue(label: "solixmenu.apibase.cache")
+    private let cacheQueue = DispatchQueue(label: "powerbankmenu.apibase.cache")
     private var siteDevices: Set<String> = []
     private var deviceCallbacks: [String: [DeviceCacheCallback]] = [:]
 

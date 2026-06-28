@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "19280B98DBBD6D30AFEEB734"
-               BuildableName = "SolixMenu.app"
+               BuildableName = "PowerBankMenu.app"
                BlueprintName = "SolixMenu"
                ReferencedContainer = "container:SolixMenu.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "19280B98DBBD6D30AFEEB734"
-            BuildableName = "SolixMenu.app"
+            BuildableName = "PowerBankMenu.app"
             BlueprintName = "SolixMenu"
             ReferencedContainer = "container:SolixMenu.xcodeproj">
          </BuildableReference>

@@ -1,4 +1,4 @@
-/* SolixMenu Japanese Localizations */
+/* PowerBankMenu Japanese Localizations */
 
 "menu.no_devices" = "デバイスなし";
 "menu.account_settings" = "設定…";
@@ -7,7 +7,7 @@
 
 "settings.title" = "設定";
 "settings.launch_at_login" = "ログイン時に自動的に起動";
-"settings.account_section" = "Ankerアカウント設定";
+"settings.account_section" = "アカウント設定";
 "settings.email" = "メールアドレス";
 "settings.password" = "パスワード";
 "settings.country" = "国/地域コード";
@@ -25,8 +25,8 @@
 "settings.status.success" = "設定を保存しました。";
 "settings.status.failure" = "設定を保存できませんでした。";
 
-"about.title" = "SolixMenu";
-"about.subtitle" = "メニューバーのSolixモニター";
+"about.title" = "PowerBankMenu";
+"about.subtitle" = "メニューバーの電源ステータス";
 "about.version.placeholder" = "バージョン —";
 "about.version.short_format" = "バージョン %@";
 "about.version.format" = "バージョン %@ (%@)";

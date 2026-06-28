@@ -7,7 +7,7 @@ final class SolixAppCoordinator: @unchecked Sendable {
         let mqttReconnectDelaySeconds: TimeInterval
 
         init(
-            logPrefix: String = "[SolixAppCoordinator]",
+            logPrefix: String = "[PowerBankAppCoordinator]",
             pollIntervalSeconds: TimeInterval = 60,
             mqttReconnectDelaySeconds: TimeInterval = 10
         ) {

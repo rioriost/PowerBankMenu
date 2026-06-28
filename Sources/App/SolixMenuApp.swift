@@ -6,10 +6,10 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
     private let coordinator = SolixAppCoordinator()
     private var statusBarController: StatusBarController?
     private var accountSettingsWindow: AccountSettingsWindowController?
-    private let terminationReason = "SolixMenu status item"
+    private let terminationReason = "PowerBankMenu status item"
 
     private func logLifecycle(_ message: String) {
-        AppLogger.log("[SolixMenuApp] \(message)")
+        AppLogger.log("[PowerBankMenuApp] \(message)")
     }
 
     static func main() {
@@ -23,9 +23,9 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         logLifecycle("applicationDidFinishLaunching")
         ProcessInfo.processInfo.disableAutomaticTermination(terminationReason)
-        NSLog("SolixMenu: configuring status bar controller.")
+        NSLog("PowerBankMenu: configuring status bar controller.")
         statusBarController = StatusBarController(appState: coordinator.appState)
-        NSLog("SolixMenu: status bar controller configured: \(statusBarController != nil).")
+        NSLog("PowerBankMenu: status bar controller configured: \(statusBarController != nil).")
         logLifecycle("status bar controller configured: \(statusBarController != nil)")
         statusBarController?.onAccountSettings = { [weak self] in
             self?.logLifecycle("account settings requested")
@@ -36,14 +36,14 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
             self?.showAbout()
         }
         statusBarController?.onQuit = {
-            AppLogger.log("[SolixMenuApp] quit requested from status bar")
+            AppLogger.log("[PowerBankMenuApp] quit requested from status bar")
             NSApp.terminate(nil)
         }
         logLifecycle("starting coordinator task")
         Task {
-            AppLogger.log("[SolixMenuApp] coordinator.start begin")
+            AppLogger.log("[PowerBankMenuApp] coordinator.start begin")
             await coordinator.start()
-            AppLogger.log("[SolixMenuApp] coordinator.start end")
+            AppLogger.log("[PowerBankMenuApp] coordinator.start end")
         }
     }
 

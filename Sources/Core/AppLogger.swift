@@ -3,7 +3,7 @@ import Foundation
 final class AppLogger: @unchecked Sendable {
     static let shared = AppLogger()
 
-    private let queue = DispatchQueue(label: "solixmenu.logger", qos: .utility)
+    private let queue = DispatchQueue(label: "powerbankmenu.logger", qos: .utility)
     private let dateFormatter = ISO8601DateFormatter()
     private var fileHandle: FileHandle?
     private var fileLoggingEnabled: Bool
@@ -81,7 +81,7 @@ final class AppLogger: @unchecked Sendable {
         let folder =
             library
             .appendingPathComponent("Logs", isDirectory: true)
-            .appendingPathComponent("SolixMenu", isDirectory: true)
-        return folder.appendingPathComponent("SolixMenu.log")
+            .appendingPathComponent("PowerBankMenu", isDirectory: true)
+        return folder.appendingPathComponent("PowerBankMenu.log")
     }
 }

@@ -16,7 +16,7 @@ protocol CredentialStoring {
 final class CredentialStore: CredentialStoring, @unchecked Sendable {
     static let shared = CredentialStore()
 
-    private let service = "st.rio.solixmenu.credentials"
+    private let service = "st.rio.powerbankmenu.credentials"
     private let account = "default"
 
     private init() {}
@@ -49,7 +49,7 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
 
     // MARK: - UserDefaults (Debug)
 
-    private let defaultsKey = "SolixMenuCredentials"
+    private let defaultsKey = "PowerBankMenuCredentials"
 
     private func loadFromDefaults() -> SolixCredentials? {
         guard let data = UserDefaults.standard.data(forKey: defaultsKey) else { return nil }
