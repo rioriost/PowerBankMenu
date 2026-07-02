@@ -1,6 +1,6 @@
 //
 //  SolixApi.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/api.py (API entry class)
 //

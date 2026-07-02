@@ -1,6 +1,6 @@
 //
 //  MqttDeviceFactory.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Simplified MQTT device factory using Solix device classes.
 //  Swift port of anker-solix-api/api/mqtt_factory.py

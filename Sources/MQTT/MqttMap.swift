@@ -1,6 +1,6 @@
 //
 //  MqttMap.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Initial MQTT map structure with sample device mappings.
 //  This is a minimal subset to validate parsing and lookup.

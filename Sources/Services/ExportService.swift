@@ -1,6 +1,6 @@
 //
 //  ExportService.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Minimal export service for writing cache JSON files.
 //

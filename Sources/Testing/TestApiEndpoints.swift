@@ -1,6 +1,6 @@
 //
 //  TestApiEndpoints.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  API endpoint test harness for ticket 19
 //

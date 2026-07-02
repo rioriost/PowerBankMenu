@@ -1,6 +1,6 @@
 //
 //  ApiErrors.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/errors.py
 //

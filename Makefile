@@ -5,4 +5,4 @@ build:
 
 test:
 	direnv exec . sh -lc 'SOLIX_EMAIL="$$SOLIX_EMAIL" SOLIX_PASSWORD="$$SOLIX_PASSWORD" SOLIX_COUNTRY="EU" SOLIX_REQUEST_TIMEOUT=60 \
-	~/Library/Developer/Xcode/DerivedData/SolixMenu-*/Build/Products/Debug/TestTicket19CLI'
+	~/Library/Developer/Xcode/DerivedData/PowerBankMenu-*/Build/Products/Debug/TestTicket19CLI'

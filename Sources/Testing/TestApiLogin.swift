@@ -1,6 +1,6 @@
 //
 //  TestApiLogin.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Login test harness mirroring Python test_api authentication flow
 //

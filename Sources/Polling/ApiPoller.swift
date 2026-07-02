@@ -1,6 +1,6 @@
 //
 //  ApiPoller.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/poller.py (simplified cache refresh)
 //

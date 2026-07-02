@@ -1,6 +1,6 @@
 //
 //  ApiBase.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/apibase.py (cache management + update helpers)
 //

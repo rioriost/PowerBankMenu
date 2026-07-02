@@ -1,6 +1,6 @@
 //
 //  TestMqttMonitor.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  MQTT monitor test harness for ticket 19
 //

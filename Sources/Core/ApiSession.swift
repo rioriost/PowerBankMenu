@@ -1,6 +1,6 @@
 //
 //  ApiSession.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/session.py (core session + auth + request)
 //

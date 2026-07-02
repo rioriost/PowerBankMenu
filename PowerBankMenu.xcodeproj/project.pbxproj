@@ -24,7 +24,7 @@
 		3F388D6FF28623DB0290B5E5 /* MqttDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA46DC02DBC6499ECB28F4C /* MqttDevice.swift */; };
 		41886D730D1FAAF6410DACF7 /* MqttTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88047943254E9A8AFEADE4 /* MqttTypes.swift */; };
 		4604097E1E6AD51AF2F25B55 /* MqttDeviceVarious.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B86A09A0A5709547DB685C /* MqttDeviceVarious.swift */; };
-		4A29C7D62F51C586001A1C38 /* SolixMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C708192A3B5C6D /* SolixMenuApp.swift */; };
+		4A29C7D62F51C586001A1C38 /* PowerBankMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C708192A3B5C6D /* PowerBankMenuApp.swift */; };
 		4FD777542427FB69E34C2D9B /* TestApiLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A24CB4637890A6AC9DF8F3 /* TestApiLogin.swift */; };
 		5702EB591901662790D3F2C8 /* SolixApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8A01CF3BDEAD7E139BF3FD /* SolixApi.swift */; };
 		595E8C96870937E9D684B003 /* ApiPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2F9F2DFEDEDB4DAAE8594 /* ApiPoller.swift */; };
@@ -117,7 +117,7 @@
 		A1B2C3D4E5F60718293A4B64 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B66 /* Localizable_ja.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable_ja.strings; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1B2C3D4E5F60718293A4B69 /* SolixMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SolixMenu.entitlements; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B69 /* PowerBankMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowerBankMenu.entitlements; sourceTree = "<group>"; };
 		A1B2C3D4E5F60718293A4B6B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A3A3E64FDCC3FA5B8444F007 /* ApiTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTypes.swift; sourceTree = "<group>"; };
 		A99A23CD2DA33283BFD48425 /* MqttDeviceCharger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttDeviceCharger.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		C0A1B2C3D4E5F60718293A4F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C9B6114EFF79B17E02A68A2B /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C60718293A4B5C /* SolixAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolixAppCoordinator.swift; sourceTree = "<group>"; };
-		D2E3F4A5B6C708192A3B5C6D /* SolixMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolixMenuApp.swift; sourceTree = "<group>"; };
+		D2E3F4A5B6C708192A3B5C6D /* PowerBankMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBankMenuApp.swift; sourceTree = "<group>"; };
 		D3E4F5A6B7C8091A2B3C4D5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3F4A5B6C7D8091A2B3C4D5F /* SolixAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolixAppState.swift; sourceTree = "<group>"; };
 		E4B4968F09D818490A28A240 /* MqttDeviceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttDeviceFactory.swift; sourceTree = "<group>"; };
@@ -294,12 +294,12 @@
 			children = (
 				D1E2F3A4B5C60718293A4B5C /* SolixAppCoordinator.swift */,
 				E3F4A5B6C7D8091A2B3C4D5F /* SolixAppState.swift */,
-				D2E3F4A5B6C708192A3B5C6D /* SolixMenuApp.swift */,
+				D2E3F4A5B6C708192A3B5C6D /* PowerBankMenuApp.swift */,
 				7B7C8D9E0F1234567890ABCE /* StatusBarController.swift */,
 				C0A1B2C3D4E5F60718293A4D /* CredentialStore.swift */,
 				C0A1B2C3D4E5F60718293A4F /* LoginController.swift */,
 				D3E4F5A6B7C8091A2B3C4D5E /* Info.plist */,
-				A1B2C3D4E5F60718293A4B69 /* SolixMenu.entitlements */,
+				A1B2C3D4E5F60718293A4B69 /* PowerBankMenu.entitlements */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -321,9 +321,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		19280B98DBBD6D30AFEEB734 /* SolixMenu */ = {
+		19280B98DBBD6D30AFEEB734 /* PowerBankMenu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1065A44CCA96BE164BB5C34 /* Build configuration list for PBXNativeTarget "SolixMenu" */;
+			buildConfigurationList = A1065A44CCA96BE164BB5C34 /* Build configuration list for PBXNativeTarget "PowerBankMenu" */;
 			buildPhases = (
 				F83BA37667F2DE792C5C454C /* Sources */,
 				D4E5F6A7B8C9012D3E4F5A6B /* Resources */,
@@ -333,11 +333,11 @@
 			);
 			dependencies = (
 			);
-			name = SolixMenu;
+			name = PowerBankMenu;
 			packageProductDependencies = (
 				FF3BAD250D06679F56EA2515 /* MQTTNIO */,
 			);
-			productName = SolixMenu;
+			productName = PowerBankMenu;
 			productReference = A0B1C2D3E4F5061728394A5B /* PowerBankMenu.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -369,7 +369,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2630;
 			};
-			buildConfigurationList = 12B633BA370B9B3EAC9601F4 /* Build configuration list for PBXProject "SolixMenu" */;
+			buildConfigurationList = 12B633BA370B9B3EAC9601F4 /* Build configuration list for PBXProject "PowerBankMenu" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -385,7 +385,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				19280B98DBBD6D30AFEEB734 /* SolixMenu */,
+				19280B98DBBD6D30AFEEB734 /* PowerBankMenu */,
 				F3FE41904185D566D602A89E /* TestTicket19CLI */,
 			);
 		};
@@ -471,7 +471,7 @@
 				5AEE39711684CB8C3FECE852 /* MqttMap.swift in Sources */,
 				87FD7FF739C9664796D886AF /* MqttSession.swift in Sources */,
 				E600A3E988C401A3731F779C /* MqttTypes.swift in Sources */,
-				4A29C7D62F51C586001A1C38 /* SolixMenuApp.swift in Sources */,
+				4A29C7D62F51C586001A1C38 /* PowerBankMenuApp.swift in Sources */,
 				8D0D0BA12C1FC633FD1D6B57 /* PowerPanelService.swift in Sources */,
 				D6BA4CB75F7D15E66D09E186 /* ScheduleService.swift in Sources */,
 				5B86CE9D6E7668B237FC5A2C /* SolixApi.swift in Sources */,
@@ -515,7 +515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sources/App/SolixMenu.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/App/PowerBankMenu.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -540,9 +540,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
-				PRODUCT_BUNDLE_IDENTIFIER = st.rio.powerbankmenu;
+				PRODUCT_BUNDLE_IDENTIFIER = st.rio.PowerBankMenu;
 				PRODUCT_NAME = PowerBankMenu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -697,7 +697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_ENTITLEMENTS = Sources/App/SolixMenu.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/App/PowerBankMenu.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -722,9 +722,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
-				PRODUCT_BUNDLE_IDENTIFIER = st.rio.powerbankmenu;
+				PRODUCT_BUNDLE_IDENTIFIER = st.rio.PowerBankMenu;
 				PRODUCT_NAME = PowerBankMenu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -737,7 +737,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		12B633BA370B9B3EAC9601F4 /* Build configuration list for PBXProject "SolixMenu" */ = {
+		12B633BA370B9B3EAC9601F4 /* Build configuration list for PBXProject "PowerBankMenu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				37AB2665084485F043C604EB /* Debug */,
@@ -746,7 +746,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A1065A44CCA96BE164BB5C34 /* Build configuration list for PBXNativeTarget "SolixMenu" */ = {
+		A1065A44CCA96BE164BB5C34 /* Build configuration list for PBXNativeTarget "PowerBankMenu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DA9026164558818B00A7B69 /* Debug */,

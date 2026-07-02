@@ -19,7 +19,7 @@
 4. アプリ情報は **About**、終了は **Quit** を使用します。
 
 ## プライバシーポリシー
-https://rioriost.github.io/powerbankmenu/privacy.html
+https://rioriost.github.io/PowerBankMenu/privacy.html
 
 ## ローカライズ
 - 日本語 (`ja`) は日本語の文字列を使用します。

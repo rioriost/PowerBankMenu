@@ -1,6 +1,6 @@
 //
 //  TestApiSitesDevices.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Site/device polling test harness for ticket 19
 //

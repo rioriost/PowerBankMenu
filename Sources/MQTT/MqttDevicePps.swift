@@ -1,6 +1,6 @@
 //
 //  MqttDevicePps.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Simplified PPS MQTT device class
 //

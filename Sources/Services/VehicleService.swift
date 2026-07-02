@@ -1,6 +1,6 @@
 //
 //  VehicleService.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/vehicle.py (core vehicle endpoints)
 //

@@ -1,6 +1,6 @@
 //
 //  TestIntegrationRunner.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Integrated ticket 19 test flow runner
 //

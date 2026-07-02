@@ -2,7 +2,7 @@ import Cocoa
 
 @main
 @MainActor
-final class SolixMenuApp: NSObject, NSApplicationDelegate {
+final class PowerBankMenuApp: NSObject, NSApplicationDelegate {
     private let coordinator = SolixAppCoordinator()
     private var statusBarController: StatusBarController?
     private var accountSettingsWindow: AccountSettingsWindowController?
@@ -14,7 +14,7 @@ final class SolixMenuApp: NSObject, NSApplicationDelegate {
 
     static func main() {
         let app = NSApplication.shared
-        let delegate = SolixMenuApp()
+        let delegate = PowerBankMenuApp()
         app.delegate = delegate
         app.setActivationPolicy(.accessory)
         app.run()

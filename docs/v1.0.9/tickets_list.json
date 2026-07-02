@@ -11,7 +11,7 @@
       "phase": 1,
       "priority": "high",
       "inputs": [
-        "Sources/App/SolixMenuApp.swift",
+        "Sources/App/PowerBankMenuApp.swift",
         "Sources/App/SolixAppCoordinator.swift"
       ],
       "outputs": [

@@ -6,7 +6,7 @@ Pythonライブラリ
 https://github.com/thomluther/anker-solix-api
 
 技術仕様:
-- 名称はsolixmenuで、Budle IDはst.rio.solixmenu。
+- 名称はPowerBankMenuで、Bundle IDはst.rio.PowerBankMenu。
 - macOS26以降に対応し、メニューバーにAnker Solixシリーズのステータスを表示する。
 - Apple Siliconのみで動作する。
 - アプリは日本語と英語に対応し、macOSのlocaleで切り替わる。jaならjaで起動し、それ以外のロケールは全てenで起動する。

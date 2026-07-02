@@ -1,6 +1,6 @@
 //
 //  MqttDeviceVarious.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Simplified MQTT device class for various devices (e.g., smart plug).
 //

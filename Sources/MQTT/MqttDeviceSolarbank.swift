@@ -1,6 +1,6 @@
 //
 //  MqttDeviceSolarbank.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Simplified MQTT device definition for Anker Solix Solarbank devices.
 //  Swift port of anker-solix-api/api/mqtt_solarbank.py (model/feature sets only)

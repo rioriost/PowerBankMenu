@@ -17,7 +17,7 @@
                BlueprintIdentifier = "F3FE41904185D566D602A89E"
                BuildableName = "TestTicket19CLI"
                BlueprintName = "TestTicket19CLI"
-               ReferencedContainer = "container:SolixMenu.xcodeproj">
+               ReferencedContainer = "container:PowerBankMenu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

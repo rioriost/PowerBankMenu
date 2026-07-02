@@ -1,6 +1,6 @@
 //
 //  EnergyService.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/energy.py (core energy endpoints)
 //

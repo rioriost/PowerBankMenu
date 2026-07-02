@@ -1,6 +1,6 @@
 //
 //  MqttDeviceCharger.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Simplified Charger MQTT device class.
 //  Swift port of anker-solix-api/api/mqtt_charger.py

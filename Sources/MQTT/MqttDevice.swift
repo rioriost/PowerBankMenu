@@ -1,6 +1,6 @@
 //
 //  MqttDevice.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Base MQTT device wrapper
 //

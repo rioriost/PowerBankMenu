@@ -2,7 +2,7 @@
 
 "menu.no_devices" = "デバイスなし";
 "menu.account_settings" = "設定…";
-"menu.about" = "このアプリについて";
+"menu.about" = "PowerBankMenuについて...";
 "menu.quit" = "終了";
 
 "settings.title" = "設定";

@@ -14,7 +14,7 @@
       "Need broader logging for lifecycle and crash-adjacent paths"
     ],
     "target_files": [
-      "Sources/App/SolixMenuApp.swift",
+      "Sources/App/PowerBankMenuApp.swift",
       "Sources/App/SolixAppCoordinator.swift",
       "Sources/MQTT/MqttSession.swift",
       "Sources/App/StatusBarController.swift",

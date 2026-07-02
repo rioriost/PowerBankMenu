@@ -1,6 +1,6 @@
 //
 //  MqttTypes.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/mqtttypes.py (core hex types + basic decoding)
 //

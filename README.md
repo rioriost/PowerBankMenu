@@ -19,7 +19,7 @@ A lightweight macOS menu bar app for monitoring compatible portable power device
 4. Use **About** for app info, **Quit** to exit.
 
 ## Privacy Policy
-https://rioriost.github.io/powerbankmenu/privacy.html
+https://rioriost.github.io/PowerBankMenu/privacy.html
 
 ## Localization
 - Japanese (`ja`) uses the Japanese strings.

@@ -208,7 +208,7 @@ final class StatusBarController: NSObject {
         let quitItem = NSMenuItem(
             title: AppLocalization.text("menu.quit"),
             action: #selector(handleQuit),
-            keyEquivalent: "q"
+            keyEquivalent: ""
         )
         quitItem.target = self
         menu.addItem(quitItem)

@@ -1,6 +1,6 @@
 //
 //  HesService.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/hesapi.py (core HES endpoints)
 //

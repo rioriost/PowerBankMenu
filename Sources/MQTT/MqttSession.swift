@@ -1,6 +1,6 @@
 //
 //  MqttSession.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/mqtt.py (MQTT session handling)
 //  Uses MQTTNIO + NIOSSL (BoringSSL) instead of SecureTransport.
@@ -37,7 +37,7 @@ final class MqttSession: NSObject, MqttSessionStatusProviding, @unchecked Sendab
 
     private var connectContinuation: CheckedContinuation<Bool, Never>?
     private var connectTimeoutTask: Task<Void, Never>?
-    private let connectStateQueue = DispatchQueue(label: "solixmenu.mqtt.connect-state")
+    private let connectStateQueue = DispatchQueue(label: "powerbankmenu.mqtt.connect-state")
     private var connectAttemptCompleted = false
     private var connectFailures: Int = 0
     private var cooldownUntil: Date?

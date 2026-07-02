@@ -11,7 +11,7 @@
 
 ## Phase 1: アプリライフサイクルの観測強化
 ### Task 1.1
-- `SolixMenuApp` に起動・終了・再オープン関連のログを追加する。
+- `PowerBankMenuApp` に起動・終了・再オープン関連のログを追加する。
 - `applicationDidFinishLaunching`
 - `applicationWillTerminate`
 - 必要に応じて追加可能なアプリイベント入口

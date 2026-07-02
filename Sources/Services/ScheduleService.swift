@@ -1,6 +1,6 @@
 //
 //  ScheduleService.swift
-//  solixmenu
+//  PowerBankMenu
 //
 //  Swift port of anker-solix-api/api/schedule.py (core schedule endpoints)
 //
