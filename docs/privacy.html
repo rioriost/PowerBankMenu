@@ -70,7 +70,7 @@
       </ul>
 
       <h3>情報の保存</h3>
-      <p>ログイン認証情報はmacOS Keychainに保存されます。ログインキャッシュやアプリ設定は、アプリのローカルストレージ（UserDefaultsなど）に保存される場合があります。デバッグログを有効にした場合、ログファイルはユーザーのMac上に保存されます。</p>
+      <p>ログイン認証情報とログインキャッシュはmacOS Keychainに保存されます。デバッグログの有効化設定はUserDefaultsに保存され、デバッグログを有効にした場合はログファイルがユーザーのMac上に保存されます。</p>
 
       <h3>外部サービスへの送信</h3>
       <p>本アプリは、ログイン、デバイス状態の取得、リアルタイム更新のために、接続先サービスおよび関連するMQTTサービスへネットワーク接続します。これらの通信は本アプリの機能提供に必要です。</p>
@@ -98,7 +98,7 @@
       </ul>
 
       <h3>Local Storage</h3>
-      <p>Login credentials are stored in the macOS Keychain. Login cache and app settings may be stored locally on your Mac using UserDefaults or similar local storage. If file logging is enabled, log files are stored locally on your Mac.</p>
+      <p>Login credentials and the login cache are stored in the macOS Keychain. The file-logging preference is stored in UserDefaults, and log files are stored locally on your Mac when file logging is enabled.</p>
 
       <h3>Network Communication</h3>
       <p>The App connects to the connected service and related MQTT services to sign in, retrieve device status, and receive real-time updates. These connections are necessary for the App's core functionality.</p>

@@ -74,6 +74,8 @@
 		BF2DF45693D37712B0C450FD /* MqttDeviceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B4968F09D818490A28A240 /* MqttDeviceFactory.swift */; };
 		C0A1B2C3D4E5F60718293A4C /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1B2C3D4E5F60718293A4D /* CredentialStore.swift */; };
 		C0A1B2C3D4E5F60718293A4E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A1B2C3D4E5F60718293A4F /* LoginController.swift */; };
+		C1D2E3F4A5B60718293A4B5C /* KeychainDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60718293A4B5E /* KeychainDataStore.swift */; };
+		C1D2E3F4A5B60718293A4B5D /* KeychainDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B60718293A4B5E /* KeychainDataStore.swift */; };
 		D0CFE046D407A06560C1D4C5 /* TestApiSitesDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE54EAF3C1C6BBC8187862 /* TestApiSitesDevices.swift */; };
 		D2F837094251E068D2A93537 /* MqttDevicePps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CE44365A912349AE0522 /* MqttDevicePps.swift */; };
 		D6BA4CB75F7D15E66D09E186 /* ScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD888A67C83A04CA4B12BD1 /* ScheduleService.swift */; };
@@ -126,6 +128,7 @@
 		B8B86A09A0A5709547DB685C /* MqttDeviceVarious.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MqttDeviceVarious.swift; sourceTree = "<group>"; };
 		C0A1B2C3D4E5F60718293A4D /* CredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialStore.swift; sourceTree = "<group>"; };
 		C0A1B2C3D4E5F60718293A4F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C1D2E3F4A5B60718293A4B5E /* KeychainDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataStore.swift; sourceTree = "<group>"; };
 		C9B6114EFF79B17E02A68A2B /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C60718293A4B5C /* SolixAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolixAppCoordinator.swift; sourceTree = "<group>"; };
 		D2E3F4A5B6C708192A3B5C6D /* PowerBankMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBankMenuApp.swift; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 				542EB7E8641A3307B2671E0C /* ApiErrors.swift */,
 				1D0691A1069FE2FA70EB341D /* ApiHelpers.swift */,
 				FA75097F5A278B398F5EE557 /* ApiSession.swift */,
+				C1D2E3F4A5B60718293A4B5E /* KeychainDataStore.swift */,
 				B2C3D4E5F60718293A4B701 /* AppLogger.swift */,
 				B2C3D4E5F60718293A4B702 /* AppSettings.swift */,
 			);
@@ -416,6 +420,7 @@
 				20A3FBC0F7D565790444FBE8 /* ApiHelpers.swift in Sources */,
 				66589756BC4EE7EDC2C361FE /* ApiPoller.swift in Sources */,
 				FBF938F34CA04C7934A1CA28 /* ApiSession.swift in Sources */,
+				C1D2E3F4A5B60718293A4B5C /* KeychainDataStore.swift in Sources */,
 				B2C3D4E5F60718293A4B703 /* AppLogger.swift in Sources */,
 				B2C3D4E5F60718293A4B704 /* AppSettings.swift in Sources */,
 				24E35DD73C8D56398A7A9FBB /* ApiTypes.swift in Sources */,
@@ -455,6 +460,7 @@
 				19BBECEA348DB193F7C73EF9 /* ApiHelpers.swift in Sources */,
 				595E8C96870937E9D684B003 /* ApiPoller.swift in Sources */,
 				B00E5BB84DB1E594EF46C78A /* ApiSession.swift in Sources */,
+				C1D2E3F4A5B60718293A4B5D /* KeychainDataStore.swift in Sources */,
 				B2C3D4E5F60718293A4B705 /* AppLogger.swift in Sources */,
 				B2C3D4E5F60718293A4B706 /* AppSettings.swift in Sources */,
 				A043E58B2102F716E526EF9D /* ApiTypes.swift in Sources */,
@@ -519,7 +525,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23889H77KX;
@@ -701,7 +707,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23889H77KX;

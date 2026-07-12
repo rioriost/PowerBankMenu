@@ -74,8 +74,9 @@ final class SolixAppCoordinator: @unchecked Sendable {
         let result = await loginController.authenticateFromSettings(credentials)
         switch result {
         case .success(let session):
-            guard loginController.saveCredentials(credentials) else {
-                let error = ApiSessionError.authenticationFailed
+            do {
+                try loginController.saveCredentials(credentials)
+            } catch {
                 setError(error)
                 return .failure(error)
             }

@@ -52,7 +52,7 @@ final class PowerBankMenuApp: NSObject, NSApplicationDelegate {
             accountSettingsWindow.present()
             return
         }
-        let credentials = CredentialStore.shared.load()
+        let credentials = try? CredentialStore.shared.load()
         let window = AccountSettingsWindowController(
             credentials: credentials,
             onVerify: { [weak self] credentials in

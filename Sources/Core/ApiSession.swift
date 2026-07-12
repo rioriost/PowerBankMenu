@@ -74,6 +74,8 @@ final class ApiSession {
     private var retryAttempt: Int? = nil
 
     // Auth cache
+    private let loginResponseKeychain: KeychainDataStore
+    private let legacyLoginResponseKeychain: KeychainDataStore?
     private var loginResponse: [String: Any] = [:]
     var loginResponseSnapshot: [String: Any] { loginResponse }
     private var tokenExpiration: Date?
@@ -97,6 +99,17 @@ final class ApiSession {
         self.countryId = countryId.uppercased()
         self.config = configuration
         self.urlSession = urlSession
+        let isAppBundle = Bundle.main.bundleURL.pathExtension == "app"
+        self.loginResponseKeychain = KeychainDataStore(
+            service: AuthStorageIdentifiers.loginResponseService,
+            usesDataProtectionKeychain: isAppBundle
+        )
+        self.legacyLoginResponseKeychain = isAppBundle
+            ? KeychainDataStore(
+                service: AuthStorageIdentifiers.loginResponseService,
+                usesDataProtectionKeychain: false
+            )
+            : nil
 
         // Select API base by country
         if let base = ApiSession.resolveApiBase(countryId: self.countryId) {
@@ -115,7 +128,7 @@ final class ApiSession {
         let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: serverPub)
         self.sharedKey = sharedSecret.withUnsafeBytes { Data($0) }
 
-        // Store password securely later (Keychain). For now keep in memory only.
+        // CredentialStore persists the password in Keychain; the session keeps a working copy.
         self._password = password
     }
 
@@ -162,7 +175,7 @@ final class ApiSession {
     }
 
     func hasValidCachedLogin(minimumSeconds: TimeInterval = 60) -> Bool {
-        guard let cached = loadCachedLoginResponse() else { return false }
+        guard let cached = try? loadCachedLoginResponse() else { return false }
         return isCachedLoginValid(cached, minimumSeconds: minimumSeconds)
     }
 
@@ -176,10 +189,10 @@ final class ApiSession {
             nickname = ""
         }
 
-        if !restart, let cached = loadCachedLoginResponse() {
+        if !restart, let cached = try loadCachedLoginResponse() {
             if isCachedLoginValid(cached, minimumSeconds: 60) {
                 log("Using cached login response.")
-                return applyLoginResponse(cached, cache: false)
+                return try applyLoginResponse(cached, cache: false)
             }
             log("Cached login response missing/expired; re-authenticating.")
         }
@@ -218,7 +231,7 @@ final class ApiSession {
             throw ApiSessionError.missingLoginData
         }
 
-        return applyLoginResponse(data, cache: true)
+        return try applyLoginResponse(data, cache: true)
     }
 
     func request(
@@ -566,9 +579,9 @@ final class ApiSession {
         return "\(prefix)###masked###\(suffix)"
     }
 
-    // MARK: - Auth Cache (UserDefaults)
+    // MARK: - Auth Cache (Keychain)
 
-    private func applyLoginResponse(_ data: [String: Any], cache: Bool) -> Bool {
+    private func applyLoginResponse(_ data: [String: Any], cache: Bool) throws -> Bool {
         loginResponse = data
         token = data["auth_token"] as? String
         nickname = (data["nick_name"] as? String) ?? ""
@@ -587,21 +600,45 @@ final class ApiSession {
         }
 
         if loggedIn, cache {
-            cacheLoginResponse(data)
+            try cacheLoginResponse(data)
         }
 
         return loggedIn
     }
 
-    private func loadCachedLoginResponse() -> [String: Any]? {
-        guard let jsonData = UserDefaults.standard.data(forKey: "PowerBankLoginResponse:\(email)")
-        else {
+    private func loadCachedLoginResponse() throws -> [String: Any]? {
+        let account = AuthStorageIdentifiers.defaultAccount
+        if let data = try loginResponseKeychain.load(account: account) {
+            guard let response = decodeLoginResponse(data) else {
+                try loginResponseKeychain.delete(account: account)
+                return nil
+            }
+            removeLegacyLoginResponseDefaults()
+            return response
+        }
+
+        if let legacyKeychain = legacyLoginResponseKeychain,
+            let data = try legacyKeychain.load(account: account)
+        {
+            guard let response = decodeLoginResponse(data) else {
+                try legacyKeychain.delete(account: account)
+                return nil
+            }
+            try loginResponseKeychain.save(data, account: account)
+            try legacyKeychain.delete(account: account)
+            removeLegacyLoginResponseDefaults()
+            return response
+        }
+
+        let defaultsKey = legacyLoginResponseDefaultsKey
+        guard let data = UserDefaults.standard.data(forKey: defaultsKey) else { return nil }
+        guard let response = decodeLoginResponse(data) else {
+            removeLegacyLoginResponseDefaults()
             return nil
         }
-        guard let jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: []) else {
-            return nil
-        }
-        return jsonObject as? [String: Any]
+        try loginResponseKeychain.save(data, account: account)
+        removeLegacyLoginResponseDefaults()
+        return response
     }
 
     private func isCachedLoginValid(
@@ -619,11 +656,31 @@ final class ApiSession {
         return expiration.timeIntervalSinceNow > minimumSeconds
     }
 
-    private func cacheLoginResponse(_ data: [String: Any]) {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: []) else {
-            return
+    private func cacheLoginResponse(_ data: [String: Any]) throws {
+        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+        let account = AuthStorageIdentifiers.defaultAccount
+        try loginResponseKeychain.save(jsonData, account: account)
+        try? legacyLoginResponseKeychain?.delete(account: account)
+        removeLegacyLoginResponseDefaults()
+    }
+
+    private func decodeLoginResponse(_ data: Data) -> [String: Any]? {
+        guard let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) else {
+            return nil
         }
-        UserDefaults.standard.set(jsonData, forKey: "PowerBankLoginResponse:\(email)")
+        return jsonObject as? [String: Any]
+    }
+
+    private var legacyLoginResponseDefaultsKey: String {
+        "\(AuthStorageIdentifiers.legacyLoginResponseDefaultsPrefix)\(email)"
+    }
+
+    private func removeLegacyLoginResponseDefaults() {
+        let defaults = UserDefaults.standard
+        for key in defaults.dictionaryRepresentation().keys
+        where key.hasPrefix(AuthStorageIdentifiers.legacyLoginResponseDefaultsPrefix) {
+            defaults.removeObject(forKey: key)
+        }
     }
 
     // MARK: - API Base Resolver

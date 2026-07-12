@@ -45,20 +45,17 @@ final class LoginController {
         self.config = configuration
     }
 
-    func saveCredentials(_ credentials: SolixCredentials) -> Bool {
-        let saved = credentialStore.save(credentials)
-        if saved {
-            clearBackoff()
-        }
-        return saved
+    func saveCredentials(_ credentials: SolixCredentials) throws {
+        try credentialStore.save(credentials)
+        clearBackoff()
     }
 
-    func clearCredentials() -> Bool {
-        credentialStore.clear()
+    func clearCredentials() throws {
+        try credentialStore.clear()
     }
 
     func cachedCredentials() -> SolixCredentials? {
-        credentialStore.load()
+        try? credentialStore.load()
     }
 
     func authenticateFromSettings(_ credentials: SolixCredentials) async -> Result<
@@ -87,7 +84,7 @@ final class LoginController {
             throw LoginControllerError.backoffActive(remaining)
         }
 
-        guard let credentials = credentialStore.load() else {
+        guard let credentials = try credentialStore.load() else {
             log("Missing credentials.")
             throw LoginControllerError.missingCredentials
         }
@@ -124,7 +121,7 @@ final class LoginController {
             throw LoginControllerError.backoffActive(remaining)
         }
 
-        guard let credentials = credentialStore.load() else {
+        guard let credentials = try credentialStore.load() else {
             log("Missing credentials.")
             throw LoginControllerError.missingCredentials
         }
