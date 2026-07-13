@@ -52,7 +52,13 @@ final class PowerBankMenuApp: NSObject, NSApplicationDelegate {
             accountSettingsWindow.present()
             return
         }
-        let credentials = try? CredentialStore.shared.load()
+        let credentials: SolixCredentials?
+        do {
+            credentials = try CredentialStore.shared.load()
+        } catch {
+            credentials = nil
+            logLifecycle("credential load failed: \(error.localizedDescription)")
+        }
         let window = AccountSettingsWindowController(
             credentials: credentials,
             onVerify: { [weak self] credentials in

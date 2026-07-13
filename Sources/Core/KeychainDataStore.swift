@@ -7,16 +7,32 @@ enum AuthStorageIdentifiers {
     static let defaultAccount = "default"
     static let legacyCredentialsDefaultsKey = "PowerBankMenuCredentials"
     static let legacyLoginResponseDefaultsPrefix = "PowerBankLoginResponse:"
+
+    static var configuredAccessGroup: String? {
+        guard Bundle.main.bundleURL.pathExtension == "app" else { return nil }
+        guard
+            let value = Bundle.main.object(
+                forInfoDictionaryKey: "PowerBankKeychainAccessGroup"
+            ) as? String,
+            !value.isEmpty
+        else {
+            return nil
+        }
+        return value
+    }
 }
 
 enum KeychainDataStoreError: LocalizedError {
     case operationFailed(operation: String, status: OSStatus)
+    case verificationFailed
 
     var errorDescription: String? {
         switch self {
         case .operationFailed(let operation, let status):
             let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
             return "Keychain \(operation) failed (OSStatus \(status)): \(message)"
+        case .verificationFailed:
+            return "Keychain save verification failed."
         }
     }
 }
@@ -29,10 +45,16 @@ enum KeychainDataStoreError: LocalizedError {
 struct KeychainDataStore: Sendable {
     let service: String
     let usesDataProtectionKeychain: Bool
+    let accessGroup: String?
 
-    init(service: String, usesDataProtectionKeychain: Bool = true) {
+    init(
+        service: String,
+        usesDataProtectionKeychain: Bool = true,
+        accessGroup: String? = AuthStorageIdentifiers.configuredAccessGroup
+    ) {
         self.service = service
         self.usesDataProtectionKeychain = usesDataProtectionKeychain
+        self.accessGroup = usesDataProtectionKeychain ? accessGroup : nil
     }
 
     func load(account: String) throws -> Data? {
@@ -63,6 +85,7 @@ struct KeychainDataStore: Sendable {
 
         let updateStatus = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         if updateStatus == errSecSuccess {
+            try verifySavedData(data, account: account)
             return
         }
         guard updateStatus == errSecItemNotFound else {
@@ -86,11 +109,13 @@ struct KeychainDataStore: Sendable {
                     status: retryStatus
                 )
             }
+            try verifySavedData(data, account: account)
             return
         }
         guard addStatus == errSecSuccess else {
             throw KeychainDataStoreError.operationFailed(operation: "save", status: addStatus)
         }
+        try verifySavedData(data, account: account)
     }
 
     func delete(account: String) throws {
@@ -106,9 +131,18 @@ struct KeychainDataStore: Sendable {
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
         ]
+        query[kSecUseDataProtectionKeychain as String] = usesDataProtectionKeychain
         if usesDataProtectionKeychain {
-            query[kSecUseDataProtectionKeychain as String] = true
+            if let accessGroup {
+                query[kSecAttrAccessGroup as String] = accessGroup
+            }
         }
         return query
+    }
+
+    private func verifySavedData(_ expected: Data, account: String) throws {
+        guard try load(account: account) == expected else {
+            throw KeychainDataStoreError.verificationFailed
+        }
     }
 }

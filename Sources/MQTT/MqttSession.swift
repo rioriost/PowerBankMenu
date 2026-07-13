@@ -81,11 +81,13 @@ final class MqttSession: NSObject, MqttSessionStatusProviding, @unchecked Sendab
             if let closeListenerName {
                 client.removeCloseListener(named: closeListenerName)
             }
-            if client.isActive() {
-                log("MqttSession: cleanup disconnecting active client")
-                _ = client.disconnect()
-            } else {
-                log("MqttSession: cleanup skipping disconnect (client already inactive)")
+            log("MqttSession: cleanup shutting down client active=\(client.isActive())")
+            client.shutdown(queue: .global(qos: .utility)) { [weak self] error in
+                if let error {
+                    self?.log("MqttSession: cleanup shutdown failed: \(error)")
+                } else {
+                    self?.log("MqttSession: cleanup shutdown complete")
+                }
             }
         } else {
             log("MqttSession: cleanup skipped mqtt shutdown (client unavailable)")

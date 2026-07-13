@@ -18,6 +18,8 @@
     <string>$(CURRENT_PROJECT_VERSION)</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>PowerBankKeychainAccessGroup</key>
+    <string>$(DEVELOPMENT_TEAM).$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.utilities</string>
     <key>LSUIElement</key>

@@ -12,6 +12,20 @@ protocol CredentialStoring {
     func clear() throws
 }
 
+enum CredentialStoreError: LocalizedError {
+    case invalidStoredCredentials
+    case saveVerificationFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidStoredCredentials:
+            return "Stored credentials could not be decoded."
+        case .saveVerificationFailed:
+            return "Stored credentials did not match the saved credentials."
+        }
+    }
+}
+
 final class CredentialStore: CredentialStoring, @unchecked Sendable {
     static let shared = CredentialStore()
 
@@ -35,13 +49,7 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
     func load() throws -> SolixCredentials? {
         if let data = try keychain.load(account: account) {
             guard let credentials = try? JSONDecoder().decode(SolixCredentials.self, from: data)
-            else {
-                try keychain.delete(account: account)
-                try removeOrphanedLoginResponse()
-                removeLegacyDefaults()
-                removeLegacyLoginResponseDefaults()
-                return nil
-            }
+            else { throw CredentialStoreError.invalidStoredCredentials }
             removeLegacyDefaults()
             return credentials
         }
@@ -54,10 +62,9 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
                 )
             else {
                 try legacyKeychain.delete(account: account)
-                try removeOrphanedLoginResponse()
                 removeLegacyDefaults()
                 removeLegacyLoginResponseDefaults()
-                return nil
+                throw CredentialStoreError.invalidStoredCredentials
             }
             try keychain.save(legacyData, account: account)
             try legacyKeychain.delete(account: account)
@@ -66,7 +73,6 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
         }
 
         guard let defaultsData = UserDefaults.standard.data(forKey: legacyDefaultsKey) else {
-            try removeOrphanedLoginResponse()
             removeLegacyLoginResponseDefaults()
             return nil
         }
@@ -74,9 +80,8 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
             let credentials = try? JSONDecoder().decode(SolixCredentials.self, from: defaultsData)
         else {
             removeLegacyDefaults()
-            try removeOrphanedLoginResponse()
             removeLegacyLoginResponseDefaults()
-            return nil
+            throw CredentialStoreError.invalidStoredCredentials
         }
         try keychain.save(defaultsData, account: account)
         removeLegacyDefaults()
@@ -86,6 +91,16 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
     func save(_ credentials: SolixCredentials) throws {
         let data = try JSONEncoder().encode(credentials)
         try keychain.save(data, account: account)
+        guard
+            let savedData = try keychain.load(account: account),
+            let savedCredentials = try? JSONDecoder().decode(
+                SolixCredentials.self,
+                from: savedData
+            ),
+            savedCredentials == credentials
+        else {
+            throw CredentialStoreError.saveVerificationFailed
+        }
         try? legacyKeychain.delete(account: account)
         removeLegacyDefaults()
     }
@@ -101,11 +116,6 @@ final class CredentialStore: CredentialStoring, @unchecked Sendable {
 
     private func removeLegacyDefaults() {
         UserDefaults.standard.removeObject(forKey: legacyDefaultsKey)
-    }
-
-    private func removeOrphanedLoginResponse() throws {
-        try loginResponseKeychain.delete(account: account)
-        try? legacyLoginResponseKeychain.delete(account: account)
     }
 
     private func removeLegacyLoginResponseDefaults() {
