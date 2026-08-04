@@ -108,7 +108,7 @@ class ApiBase {
     func addSiteDevice(_ deviceSn: String) {
         guard !deviceSn.isEmpty else { return }
         cacheQueue.sync {
-            siteDevices.insert(deviceSn)
+            _ = siteDevices.insert(deviceSn)
         }
     }
 

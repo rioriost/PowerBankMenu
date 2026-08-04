@@ -579,10 +579,9 @@ struct DeviceHexData: CustomStringConvertible {
             if let name = valueMap[MqttMapKeys.name] as? String, let found = source[key] {
                 output[name] = found
             }
-            if let nestedMap = valueMap as? [String: Any],
-                let nestedSource = source[key] as? [String: Any]
+            if let nestedSource = source[key] as? [String: Any]
             {
-                applyJsonMap(nestedMap, source: nestedSource, output: &output)
+                applyJsonMap(valueMap, source: nestedSource, output: &output)
             }
         }
     }
