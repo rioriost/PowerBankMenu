@@ -37,3 +37,6 @@ https://github.com/thomluther/anker-solix-api
 
 ## ライセンス
 MIT（`LICENSE` を参照）
+
+## リリース手順
+固定の公証プロファイルと認証情報の登録方法は[リリース手順](docs/releasing.md)を参照してください。

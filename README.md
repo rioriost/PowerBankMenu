@@ -37,3 +37,6 @@ Thank you for the great work.
 
 ## License
 MIT (see `LICENSE`).
+
+## Release process
+See [the release procedure](docs/releasing.md) for the fixed notarization profile and secure credential setup.
