@@ -73,7 +73,7 @@ ditto -c -k --sequesterRsrc --keepParent \
 ## GitHub公開
 
 1. ソースをcommit・pushし、対象コミットにバージョンタグを作成してpushします。既存の公開タグを上書きしません。
-2. GitHub Releaseの草稿に最終ZIP・`SHA256SUMS.txt`・README・LICENSEを添付します。今回の1.2.1草稿には公証前のZIPがあるため、最終ZIPとチェックサムを置き換えます。
+2. GitHub Releaseの草稿に最終ZIP・`SHA256SUMS.txt`・README・LICENSEを添付します。公証前のZIPを草稿に添付していた場合は、最終ZIPとチェックサムを置き換えます。1.2.1の公開結果は[リリース記録](releases/1.2.1.md)を参照してください。
 3. 公証`Accepted`、staple検証、Gatekeeper受理、添付ファイルのSHA-256一致を確認して草稿を公開します。公証保留の記述も実際の結果に合わせて更新します。
 4. リリースが草稿でないこと、タグの対象コミット、remoteとの一致、作業ツリーの状態を再確認します。後続の手順書のみのコミットがある場合、mainとリリースタグの差分が意図した内容かも確認します。
 
