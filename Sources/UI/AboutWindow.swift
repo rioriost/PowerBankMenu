@@ -13,16 +13,14 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
 
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 360, height: 220),
-            styleMask: [.titled, .closable, .miniaturizable],
+            contentRect: NSRect(x: 0, y: 0, width: 380, height: 260),
+            styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
         )
         window.title = AppLocalization.text("menu.about")
         window.center()
         window.isReleasedWhenClosed = false
-        window.level = .floating
-        window.collectionBehavior = [.transient, .ignoresCycle]
         window.isMovableByWindowBackground = true
         window.backgroundColor = .windowBackgroundColor
 
@@ -49,6 +47,7 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         guard let contentView = window?.contentView else { return }
         contentView.wantsLayer = true
 
+        iconView.setAccessibilityElement(false)
         iconView.image = NSApp.applicationIconImage
         iconView.imageScaling = .scaleProportionallyUpOrDown
         iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,11 +56,11 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         titleLabel.textColor = .labelColor
         titleLabel.alignment = .center
 
-        versionLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        versionLabel.font = .systemFont(ofSize: NSFont.systemFontSize, weight: .regular)
         versionLabel.textColor = .secondaryLabelColor
         versionLabel.alignment = .center
 
-        detailLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        detailLabel.font = .systemFont(ofSize: NSFont.systemFontSize, weight: .regular)
         detailLabel.textColor = .secondaryLabelColor
         detailLabel.alignment = .center
         detailLabel.maximumNumberOfLines = 0
@@ -69,7 +68,7 @@ final class AboutWindowController: NSWindowController, NSWindowDelegate {
         let stack = NSStackView(views: [iconView, titleLabel, versionLabel, detailLabel])
         stack.orientation = .vertical
         stack.alignment = .centerX
-        stack.spacing = 6
+        stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(stack)

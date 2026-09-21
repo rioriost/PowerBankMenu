@@ -79,13 +79,11 @@ final class PowerBankMenuApp: NSObject, NSApplicationDelegate {
             }
         )
         accountSettingsWindow = window
-        statusBarController?.setAccountSettingsEnabled(false)
         window.present()
     }
 
     private func closeAccountSettingsWindow() {
         accountSettingsWindow = nil
-        statusBarController?.setAccountSettingsEnabled(true)
     }
 
     private func showAbout() {
@@ -125,6 +123,7 @@ final class PowerBankMenuApp: NSObject, NSApplicationDelegate {
         -> Bool
     {
         logLifecycle("applicationShouldHandleReopen hasVisibleWindows=\(flag)")
+        if !flag { showAccountSettings() }
         return true
     }
 }

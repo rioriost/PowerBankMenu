@@ -3,70 +3,13 @@ import Combine
 
 @MainActor
 final class StatusBarController: NSObject {
-    private func attributedLine(for device: SolixAppState.Device) -> NSAttributedString {
-        let nameFont = NSFont.systemFont(ofSize: 12, weight: .semibold)
-        let valueFont = NSFont.systemFont(ofSize: 11, weight: .regular)
-
-        let nameAttributes: [NSAttributedString.Key: Any] = [
-            .font: nameFont,
-            .foregroundColor: NSColor.labelColor,
-        ]
-        let valueAttributes: [NSAttributedString.Key: Any] = [
-            .font: valueFont,
-            .foregroundColor: NSColor.labelColor,
-        ]
-        let outAttributes: [NSAttributedString.Key: Any] = [
-            .font: valueFont,
-            .foregroundColor: NSColor.systemRed,
-        ]
-        let inAttributes: [NSAttributedString.Key: Any] = [
-            .font: valueFont,
-            .foregroundColor: NSColor.systemGreen,
-        ]
-
-        let result = NSMutableAttributedString(
-            string: device.name,
-            attributes: nameAttributes
-        )
-
-        result.append(NSAttributedString(string: "  ", attributes: valueAttributes))
-        result.append(
-            NSAttributedString(
-                string: "OUT: \(wattText(device.outputWatts)) W",
-                attributes: outAttributes
-            )
-        )
-        result.append(NSAttributedString(string: " / ", attributes: valueAttributes))
-        result.append(
-            NSAttributedString(
-                string: "IN: \(wattText(device.inputWatts)) W",
-                attributes: inAttributes
-            )
-        )
-        result.append(NSAttributedString(string: " / ", attributes: valueAttributes))
-        result.append(
-            NSAttributedString(
-                string: "\(percentText(device.batteryPercent)) %",
-                attributes: valueAttributes
-            )
-        )
-        return result
-    }
-
-    private func wattText(_ value: Int?) -> String {
-        value.map(String.init) ?? "--"
-    }
-
-    private func percentText(_ value: Int?) -> String {
-        value.map(String.init) ?? "--"
-    }
+    private let renderer = MenuItemRenderer()
 
     private let statusItem: NSStatusItem
-    private let menu: NSMenu
+    let menu: NSMenu
     private let appState: SolixAppState
     private var deviceItems: [NSMenuItem] = []
     private var errorItem: NSMenuItem?
-    private var accountSettingsItem: NSMenuItem?
     private var cancellables: Set<AnyCancellable> = []
 
     var onAccountSettings: (() -> Void)?
@@ -80,6 +23,7 @@ final class StatusBarController: NSObject {
         super.init()
         configureStatusItem()
         configureMenu()
+        configureApplicationMenu()
         bindState()
     }
 
@@ -88,15 +32,14 @@ final class StatusBarController: NSObject {
         if let button = statusItem.button {
             let image = statusImage(isAuthenticated: appState.isAuthenticated)
             button.image = image
-            button.title = AppLocalization.text("about.title")
+            button.title = image == nil ? AppLocalization.text("about.title") : ""
             if image == nil {
                 button.imagePosition = .noImage
                 AppLogger.log("Status bar image unavailable; showing title only.")
             } else {
-                button.imagePosition = .imageLeft
+                button.imagePosition = .imageOnly
             }
-            button.toolTip = AppLocalization.text("about.title")
-            button.setAccessibilityLabel(AppLocalization.text("about.title"))
+            updateStatusButton()
         } else {
             AppLogger.log("Status bar button is nil; status item may not be visible.")
         }
@@ -109,6 +52,30 @@ final class StatusBarController: NSObject {
         addFixedItems()
     }
 
+    private func configureApplicationMenu() {
+        let mainMenu = NSMenu()
+        let appItem = NSMenuItem()
+        let appMenu = NSMenu()
+        for (title, action, key) in [
+            ("menu.about", #selector(handleAbout), ""),
+            ("menu.account_settings", #selector(handleAccountSettings), ","),
+            ("menu.quit", #selector(handleQuit), "q"),
+        ] {
+            if title == "menu.quit" { appMenu.addItem(.separator()) }
+            let item = NSMenuItem(title: AppLocalization.text(title), action: action, keyEquivalent: key)
+            item.target = self
+            appMenu.addItem(item)
+        }
+        appItem.submenu = appMenu
+        mainMenu.addItem(appItem)
+        let fileItem = NSMenuItem(title: AppLocalization.text("menu.file"), action: nil, keyEquivalent: "")
+        let fileMenu = NSMenu(title: AppLocalization.text("menu.file"))
+        fileMenu.addItem(withTitle: AppLocalization.text("menu.close"), action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
+        fileItem.submenu = fileMenu
+        mainMenu.addItem(fileItem)
+        NSApp.mainMenu = mainMenu
+    }
+
     private func bindState() {
         appState.$devices
             .receive(on: RunLoop.main)
@@ -119,11 +86,10 @@ final class StatusBarController: NSObject {
 
         appState.$isAuthenticated
             .receive(on: RunLoop.main)
-            .sink { [weak self] isAuthenticated in
+            .sink { [weak self] _ in
                 guard let self else { return }
-                if let button = self.statusItem.button {
-                    button.image = self.statusImage(isAuthenticated: isAuthenticated)
-                }
+                self.updateStatusButton()
+                self.updateDeviceItems()
             }
             .store(in: &cancellables)
 
@@ -154,22 +120,29 @@ final class StatusBarController: NSObject {
         if devices.isEmpty {
             if appState.lastErrorMessage == nil || appState.lastErrorMessage?.isEmpty == true {
                 let item = NSMenuItem(
-                    title: AppLocalization.text("menu.no_devices"), action: nil, keyEquivalent: "")
+                    title: AppLocalization.text(appState.isAuthenticated ? "menu.no_devices" : "menu.sign_in_required"), action: nil, keyEquivalent: "")
                 item.isEnabled = false
                 deviceItems.append(item)
             }
         } else {
             for device in devices {
-                let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+                let header = NSMenuItem.sectionHeader(title: device.name)
+                header.toolTip = device.name
+                let item = NSMenuItem(title: renderer.summary(for: device), action: nil, keyEquivalent: "")
                 item.isEnabled = false
-                item.attributedTitle = attributedLine(for: device)
-                deviceItems.append(item)
+                item.attributedTitle = renderer.attributedTitle(for: device)
+                item.setAccessibilityLabel("\(device.name), \(renderer.summary(for: device))")
+                deviceItems.append(contentsOf: [header, item])
             }
         }
 
         if let message = appState.lastErrorMessage, !message.isEmpty {
-            let item = NSMenuItem(title: message, action: nil, keyEquivalent: "")
-            item.isEnabled = false
+            let item = NSMenuItem(title: AppLocalization.text("menu.connection_error"), action: #selector(handleErrorDetails), keyEquivalent: "")
+            item.target = self
+            item.toolTip = message
+            item.setAccessibilityHelp(message)
+            item.image = NSImage(systemSymbolName: "exclamationmark.triangle", accessibilityDescription: nil)
+            item.isEnabled = true
             menu.insertItem(item, at: 0)
             errorItem = item
         }
@@ -191,10 +164,9 @@ final class StatusBarController: NSObject {
         let accountItem = NSMenuItem(
             title: AppLocalization.text("menu.account_settings"),
             action: #selector(handleAccountSettings),
-            keyEquivalent: ""
+            keyEquivalent: ","
         )
         accountItem.target = self
-        accountSettingsItem = accountItem
         menu.addItem(accountItem)
 
         let aboutItem = NSMenuItem(
@@ -205,42 +177,47 @@ final class StatusBarController: NSObject {
         aboutItem.target = self
         menu.addItem(aboutItem)
 
+        menu.addItem(.separator())
         let quitItem = NSMenuItem(
             title: AppLocalization.text("menu.quit"),
             action: #selector(handleQuit),
-            keyEquivalent: ""
+            keyEquivalent: "q"
         )
         quitItem.target = self
         menu.addItem(quitItem)
     }
 
+    private func updateStatusButton() {
+        guard let button = statusItem.button else { return }
+        button.image = statusImage(isAuthenticated: appState.isAuthenticated)
+        let state = AppLocalization.text(appState.isAuthenticated ? "menu.signed_in" : "menu.sign_in_required")
+        let description = "PowerBankMenu — \(state)"
+        button.toolTip = description
+        button.setAccessibilityLabel(description)
+    }
+
     private func statusImage(isAuthenticated: Bool) -> NSImage? {
-        let symbolNames = ["circle.fill", "circle"]
-        for name in symbolNames {
-            if let image = NSImage(systemSymbolName: name, accessibilityDescription: nil) {
-                image.isTemplate = true
-                let tinted = image.copy() as? NSImage ?? image
-                tinted.isTemplate = false
-                tinted.lockFocus()
-                (isAuthenticated ? NSColor.systemGreen : NSColor.tertiaryLabelColor).set()
-                let rect = NSRect(origin: .zero, size: tinted.size)
-                rect.fill(using: .sourceAtop)
-                tinted.unlockFocus()
-                return tinted
-            }
-        }
-        return nil
+        let name = isAuthenticated ? "bolt.circle" : "exclamationmark.circle"
+        let image = NSImage(systemSymbolName: name, accessibilityDescription: nil)
+        image?.isTemplate = true
+        return image
+    }
+
+    @objc private func handleErrorDetails() {
+        guard let message = appState.lastErrorMessage, !message.isEmpty else { return }
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = AppLocalization.text("menu.connection_error")
+        alert.informativeText = message
+        alert.addButton(withTitle: AppLocalization.text("common.close"))
+        NSApp.activate(ignoringOtherApps: true)
+        alert.runModal()
     }
 
     @objc private func handleAccountSettings() {
-        guard accountSettingsItem?.isEnabled != false else { return }
         if let onAccountSettings {
             onAccountSettings()
         }
-    }
-
-    func setAccountSettingsEnabled(_ enabled: Bool) {
-        accountSettingsItem?.isEnabled = enabled
     }
 
     @objc private func handleAbout() {

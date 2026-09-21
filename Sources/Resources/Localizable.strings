@@ -1,7 +1,21 @@
 "menu.no_devices" = "No devices";
 "menu.account_settings" = "Settings…";
-"menu.about" = "About PowerBankMenu...";
-"menu.quit" = "Quit";
+"menu.about" = "About PowerBankMenu";
+"menu.quit" = "Quit PowerBankMenu";
+"menu.edit" = "Edit";
+"menu.cut" = "Cut";
+"menu.copy" = "Copy";
+"menu.paste" = "Paste";
+"menu.select_all" = "Select All";
+"menu.close" = "Close Window";
+"menu.device_summary" = "Battery %@  ·  Out %@  ·  In %@";
+"menu.low_battery" = "Low battery";
+"menu.sign_in_required" = "Sign in from Settings…";
+"menu.signed_in" = "Signed in";
+"menu.connection_error" = "Unable to update devices";
+"menu.file" = "File";
+
+"common.close" = "Close";
 
 "settings.title" = "Settings";
 "settings.launch_at_login" = "Launch automatically at login";
@@ -10,18 +24,20 @@
 "settings.password" = "Password";
 "settings.country" = "Country/Region Code";
 "settings.debug_log" = "Write logs to file";
-"settings.save" = "Save";
+"settings.save" = "Save Account";
 "settings.cancel" = "Cancel";
 "settings.clear" = "Clear";
-
 "settings.error.missing_fields" = "Enter email, password, and country/region code.";
 "settings.error.missing_credentials" = "Missing credentials.";
 "settings.error.auth_failed" = "Authentication failed.";
 "settings.error.launch_at_login_failed" = "Could not update login item setting.";
 "settings.error.backoff" = "Please try again later.";
-"settings.status.verifying" = "Saving settings…";
+"settings.status.verifying" = "Verifying and saving account…";
 "settings.status.success" = "Settings saved.";
 "settings.status.failure" = "Could not save settings.";
+"settings.general_section" = "General";
+"settings.general_help" = "These options take effect immediately.";
+"settings.country_help" = "Use the country/region code for your account (for example, JP or EU).";
 
 "about.title" = "PowerBankMenu";
 "about.subtitle" = "Menu bar power status";
